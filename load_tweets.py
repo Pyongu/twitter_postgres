@@ -284,8 +284,8 @@ def insert_tweet(connection,tweet):
             'retweet_count': tweet['retweet_count'],
             'favorite_count': tweet['favorite_count'],
             'quote_count': tweet['quote_count'],
-            'withheld_copyright': tweet.get('withheld_copyright', None)
-            'withheld_in_countries': tweet.get('withheld_in_countries', None)
+            'withheld_copyright': tweet.get('withheld_copyright', None),
+            'withheld_in_countries': tweet.get('withheld_in_countries', None),
             'source': remove_nulls(tweet['source']),
             'text': remove_nulls(tweet['text']),
             'country_code': country_code,
@@ -390,7 +390,7 @@ def insert_tweet(connection,tweet):
                     )ON CONFLICT DO NOTHING
                 ''')
             res = connection.execute(sql, {
-                'id_tweets': tweets['id']
+                'id_tweets': tweets['id'],
                 'tag': tag
                 })
 
@@ -421,7 +421,7 @@ def insert_tweet(connection,tweet):
                 ''')
             res = connection.execute(sql, {
                 'id_tweets': tweets['id'],
-                'id_urls': id_urls
+                'id_urls': id_urls,
                 'type': medium.get('type', None)
                 })
 
