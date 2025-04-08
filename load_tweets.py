@@ -93,10 +93,10 @@ def insert_tweet(connection,tweet):
     sql=sqlalchemy.sql.text('''
     SELECT id_tweets 
     FROM tweets
-    WHERE id_tweets = :id_tweets
+    WHERE id_tweets = CAST(:id_tweets AS BIGINT)
     ''')
     res = connection.execute(sql,{
-        'id_tweets':tweet['id'],
+        'id_tweets': int(tweet['id']),
         })
     if res.first() is not None:
         return
