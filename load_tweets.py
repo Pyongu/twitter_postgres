@@ -392,7 +392,7 @@ def insert_tweet(connection,tweet):
             res = connection.execute(sql, {
                 'id_tweets': tweets['id']
                 'tag': tag
-                )}
+                })
 
         ########################################
         # insert into the tweet_media table
