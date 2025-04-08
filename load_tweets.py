@@ -93,7 +93,7 @@ def insert_tweet(connection,tweet):
     sql=sqlalchemy.sql.text('''
     SELECT id_tweets 
     FROM tweets
-    WHERE id_tweets = :id_tweets
+    WHERE id_tweets = :CAST(id_tweets as BIGINT)
     ''')
     res = connection.execute(sql,{
         'id_tweets':int(tweet['id']),
@@ -277,9 +277,9 @@ def insert_tweet(connection,tweet):
         res = connection.execute(sql, {
             'id_tweets': tweet['id'],
             'id_users': tweet['user']['id'],
-            'created_at': tweet['created_at'],
-            'in_reply_to_status_id': tweet['in_reply_to_status_id'],
-            'in_reply_to_user_id': tweet['in_reply_to_user_id'],
+            'created_at': tweet.get('created_at', None),
+            'in_reply_to_status_id': tweet.get('in_reply_to_status_id', None),
+            'in_reply_to_user_id': tweet.get('in_reply_to_user_id', None),
             'quoted_status_id': tweet.get('quoted_status_id', None),
             'retweet_count': tweet['retweet_count'],
             'favorite_count': tweet['favorite_count'],
