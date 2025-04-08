@@ -93,7 +93,7 @@ def insert_tweet(connection,tweet):
     sql=sqlalchemy.sql.text('''
     SELECT id_tweets 
     FROM tweets
-    WHERE id_tweets = CAST(:id_tweets AS BIGINT)
+    WHERE id_tweets = :id_tweets
     ''')
     res = connection.execute(sql,{
         'id_tweets': int(tweet['id']),
