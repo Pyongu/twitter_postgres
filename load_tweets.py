@@ -275,7 +275,7 @@ def insert_tweet(connection,tweet):
                 ) on conflict do nothing
             ''')
         res = connection.execute(sql, {
-            'id_tweets': tweet.get('id'),
+            'id_tweets': tweet.get('id', None),
             'id_users': tweet['user']['id'],
             'created_at': tweet.get('created_at', None),
             'in_reply_to_status_id': tweet.get('in_reply_to_status_id', None),
@@ -287,9 +287,9 @@ def insert_tweet(connection,tweet):
             'withheld_copyright': tweet.get('withheld_copyright', None),
             'withheld_in_countries': tweet.get('withheld_in_countries', None),
             'source': remove_nulls(tweet['source']),
-            'text': text,
-            'country_code': country_code,
-            'state_code': state_code,
+            'text': remove_nulls(text),
+            'country_code': remove_nulls(country_code),
+            'state_code': remove_nulls(state_code),
             'lang': remove_nulls(tweet.get('lang', None)),
             'place_name': remove_nulls(place_name),
             'geo': f"{geo_str}({geo_coords})"
@@ -422,7 +422,7 @@ def insert_tweet(connection,tweet):
             res = connection.execute(sql, {
                 'id_tweets': tweet['id'],
                 'id_urls': id_urls,
-                'type': medium.get('type', None)
+                'type': remove_nulls(medium.get('type', None))
                 })
 
 ################################################################################
